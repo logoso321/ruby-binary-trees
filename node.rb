@@ -1,31 +1,35 @@
 class Node
-	attr_accessor :value, :child_a, :child_b
+	attr_accessor :data, :left, :right, :parent
 
-	def initialize(num, lower = nil, higher = nil)
-		@value = num
-		#If the user enters false input
-		if(lower != nil && higher != nil && lower > higher)
-			@child_a = higher
-			@child_b = lower
+	def initialize(data, left = nil, right = nil)
+		@data = data
+		@left = left
+		@right = right
+	end
+
+	def data
+		if (@data)
+			return @data
 		else
-			@child_a = lower
-			@child_b = higher
+			return "none"
 		end
 	end
-
-	def value
-		return @value
-	end
-
+	
 	def to_s
-		if(@child_a == nil && @child_b == nil)
-			return "Node #{@value} has no children"
-		elsif(@child_a == nil)
-			return "Node #{@value} has child #{@child_b}"
-		elsif(@child_b == nil)
-			return "Node #{@value} has child #{@child_a}"
+		print("#{data}")
+		if(left && right)
+			print(" has children (#{@left.data}, #{@right.data})")
+		elsif(left)
+			print(" has left node #{@left.data}")
+		elsif(right)
+			print(" has right node #{@right.data}")
 		else
-			return "Node #{@value} has children (#{@child_a}, #{@child_b})"
+			print(" has no children")
 		end
+	end
+
+	def <=>(node)
+		return @data <=> node.data
 	end
 end
+
